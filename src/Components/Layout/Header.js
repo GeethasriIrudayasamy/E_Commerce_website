@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import CartContext from "../../Store/cart-context";
 import Cart from "../Cart/Cart";
 import classes from "./Header.module.css";
 
 const Header = () => {
+    const cartCtx = useContext(CartContext);
+    console.log(cartCtx.totalQuantity);
     return (
         <div>
             <header>
@@ -14,7 +17,9 @@ const Header = () => {
                     </section>
                     <div>
                         <Cart />
-                        <span className={classes["cart-number"]}>0</span>
+                        <span className={classes["cart-number"]}>
+                            {cartCtx.totalQuantity}
+                        </span>
                     </div>
                 </div>
             </header>
