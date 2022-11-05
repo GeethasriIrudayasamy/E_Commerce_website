@@ -1,4 +1,5 @@
 import React from "react";
+import Cart from "../Cart/Cart";
 import classes from "./Header.module.css";
 
 const Header = () => {
@@ -12,7 +13,7 @@ const Header = () => {
                         <a href="/">ABOUT</a>
                     </section>
                     <div>
-                        <button className={classes.cart}>Cart</button>
+                        <Cart />
                         <span className={classes["cart-number"]}>0</span>
                     </div>
                 </div>
