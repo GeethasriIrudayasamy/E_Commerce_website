@@ -4,11 +4,11 @@
     padding: 20px;
     justify-self: center;
     align-items: center;
-    background: #36c3f1;
+    background: #0e92eb;
 }
 .footer-title {
     color: white;
-    width: 50%;
+    width: 100%;
     font-size: 50px;
     font-weight: bold;
     margin: 0 auto;

@@ -1,9 +1,10 @@
 .modal {
     position: fixed;
     margin: 0px;
-    top: 50px;
+    top: 40px;
+
     height: 95%;
-    width: 45%;
+    width: 35%;
     right: 0;
     border: 1px solid rgb(187, 45, 45);
     min-height: 50vh;
