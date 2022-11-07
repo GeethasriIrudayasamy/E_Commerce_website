@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import React, { useContext } from "react";
 import CartContext from "../../Store/cart-context";
 import Cart from "../Cart/Cart";
@@ -10,10 +11,22 @@ const Header = () => {
         <div>
             <header>
                 <div className={classes.header}>
-                    <section>
-                        <a href="/">HOME</a>
-                        <a href="/">STORE</a>
-                        <a href="/">ABOUT</a>
+                    <section className={classes.navlist}>
+                        <li>
+                            <NavLink className={classes.navlist} to="/home">
+                                HOME
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className={classes.navlist} to="/">
+                                STORE
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className={classes.navlist} to="/about">
+                                ABOUT
+                            </NavLink>
+                        </li>
                     </section>
                     <div>
                         <Cart />
