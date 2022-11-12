@@ -27,6 +27,11 @@ const Header = () => {
                                 ABOUT
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink className={classes.navlist} to="/contact">
+                                CONTACT
+                            </NavLink>
+                        </li>
                     </section>
                     <div>
                         <Cart />
@@ -36,7 +41,6 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            
         </div>
     );
 };
