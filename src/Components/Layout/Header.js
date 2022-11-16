@@ -6,7 +6,7 @@ import classes from "./Header.module.css";
 
 const Header = () => {
     const cartCtx = useContext(CartContext);
-    console.log(cartCtx.totalQuantity);
+    // console.log(cartCtx.totalQuantity);
     return (
         <div>
             <header>

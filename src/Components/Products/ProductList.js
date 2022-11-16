@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import CartContext from "../../Store/cart-context";
 import classes from "./ProductList.module.css";
 
 const ProductList = (props) => {
     const cartCtx = useContext(CartContext);
+
     const addToCartHandler = () => {
         cartCtx.addItems(props);
+    };
+
+    const displayHandler = () => {
+        cartCtx.displayItems(props);
     };
     return (
         <div className={classes.list}>
@@ -14,7 +20,9 @@ const ProductList = (props) => {
                     <h3>{props.title}</h3>
                 </div>
                 <div className={classes.image}>
-                    <img src={props.img} alt="" />
+                    <Link to={`/${props.id}`}>
+                        <img src={props.img} alt="" onClick={displayHandler} />
+                    </Link>
                 </div>
                 <div className={classes.details}>
                     <span>${props.price}</span>

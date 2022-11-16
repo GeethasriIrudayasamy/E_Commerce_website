@@ -4,6 +4,7 @@ import CartContext from "./cart-context";
 
 const CartProvider = (props) => {
     const [cartItems, setCartItems] = useState([]);
+    const [product, setProduct] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -12,7 +13,9 @@ const CartProvider = (props) => {
         setTotalAmount(updatedTotalAmount);
         setTotalQuantity((preQty) => preQty + 1);
         const itemIdx = cartItems.findIndex((i) => i.id === item.id);
+
         let existingItem = cartItems[itemIdx];
+
         if (existingItem) {
             let updatedItem = {
                 ...existingItem,
@@ -29,12 +32,23 @@ const CartProvider = (props) => {
 
     const removeItemToCartHandler = (id) => {};
 
+    const displayHandler = (item) => {
+        const displayItems = product.filter((i) => {
+            return i.id !== item.id;
+        });
+        if (displayItems) {
+            setProduct([{ ...item }]);
+        }
+    };
+
     const cart_context = {
         listOfItems: cartItems,
+        display: product,
         totalAmount: totalAmount,
         totalQuantity: totalQuantity,
         addItems: addItemToCartHandler,
         removeItems: removeItemToCartHandler,
+        displayItems: displayHandler,
     };
 
     return (
