@@ -6,6 +6,7 @@ import CartItem from "./CartItem";
 
 const CartProducts = (props) => {
     const cartContext = useContext(CartContext);
+    console.log(cartContext);
     const items = (
         <ul>
             {cartContext.listOfItems.map((item) => {
