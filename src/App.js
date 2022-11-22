@@ -40,6 +40,9 @@ function App() {
 
             {isLoggedIn && (
                 <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/store" />
+                    </Route>
                     <Route exact path="/about">
                         <About />
                     </Route>

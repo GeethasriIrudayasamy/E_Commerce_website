@@ -7,17 +7,35 @@ import CartItem from "./CartItem";
 const CartProducts = (props) => {
     const cartContext = useContext(CartContext);
     console.log(cartContext);
+
+    // const items = () => {
+    //     const data = cartContext.listOfItems;
+
+    //     for (const key in cartContext.listOfItems) {
+    //         // console.log(data[key].item);
+    //         return (
+    //             <CartItem
+    //                 id={data[key].item.id}
+    //                 quantity={data[key].item.quantity}
+    //                 imageUrl={data[key].item.img}
+    //                 title={data[key].item.title}
+    //                 price={data[key].item.price}
+    //             />
+    //         );
+    //     }
+    // };
+
     const items = (
         <ul>
             {cartContext.listOfItems.map((item) => {
                 return (
                     <CartItem
-                        key={item.id}
-                        id={item.id}
-                        quantity={item.quantity}
-                        imageUrl={item.img}
-                        title={item.title}
-                        price={item.price}
+                        key={item.item.id}
+                        id={item.item.id}
+                        quantity={item.item.quantity}
+                        imageUrl={item.item.img}
+                        title={item.item.title}
+                        price={item.item.price}
                     />
                 );
             })}
