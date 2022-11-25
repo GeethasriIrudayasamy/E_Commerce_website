@@ -77,8 +77,8 @@ const Header = () => {
                                         color: "white",
                                         fontSize: "18px",
                                         fontFamily: "inherit",
-                                        border: "1px solid white",
-                                        borderRadius: "3px",
+                                        border: "2px solid #36c3f1",
+                                        borderRadius: "7px",
                                     }}
                                     onClick={logoutHandler}
                                 >

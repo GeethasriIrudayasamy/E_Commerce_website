@@ -6,7 +6,7 @@ import CartContext from "./cart-context";
 const CartProvider = (props) => {
     const authCtx = useContext(AuthContext);
     const [cartItems, setCartItems] = useState([]);
-    const [product, setProduct] = useState([]);
+
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -18,37 +18,39 @@ const CartProvider = (props) => {
 
     const getCartItemFromDb = useCallback(async () => {
         console.log(" getcartitem called");
-        const response = await fetch(
-            `https://crudcrud.com/api/dc4e5029790e41a1bff8dfcb62a29b75/cart${email}`
-        );
-        const data = await response.json();
-        console.log(data);
-        if (data.length > 0) {
-            const cartItem = [];
-            let amount = 0;
-            let totalquantity = 0;
-            for (const key in data) {
-                // console.log(data[key].updatedList.updatedItem);
-                amount +=
-                    data[key].updatedItem.price *
-                    Number(data[key].updatedItem.quantity);
-                totalquantity =
-                    totalquantity + Number(data[key].updatedItem.quantity);
-                cartItem.push({
-                    item: data[key].updatedItem,
-                    // email: data[key].email,
-                    _id: data[key]._id,
-                    // quantity: Number(data[key].updatedItem.quantity),
-                });
-                console.log(cartItem);
-                setTotalAmount(amount);
-                setTotalQuantity(totalquantity);
-                setCartItems(cartItem);
+        if (email) {
+            const response = await fetch(
+                `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}`
+            );
+            const data = await response.json();
+            console.log(data);
+            if (data.length > 0) {
+                const cartItem = [];
+                let amount = 0;
+                let totalquantity = 0;
+                for (const key in data) {
+                    // console.log(data[key].updatedList.updatedItem);
+                    amount +=
+                        data[key].updatedItem.price *
+                        Number(data[key].updatedItem.quantity);
+                    totalquantity =
+                        totalquantity + Number(data[key].updatedItem.quantity);
+                    cartItem.push({
+                        item: data[key].updatedItem,
+                        // email: data[key].email,
+                        _id: data[key]._id,
+                        // quantity: Number(data[key].updatedItem.quantity),
+                    });
+                    console.log(cartItem);
+                    setTotalAmount(amount);
+                    setTotalQuantity(totalquantity);
+                    setCartItems(cartItem);
+                }
+            } else {
+                setCartItems([]);
+                setTotalAmount(0);
+                setTotalQuantity(0);
             }
-        } else {
-            setCartItems([]);
-            setTotalAmount(0);
-            setTotalQuantity(0);
         }
     }, [email]);
     useEffect(() => {
@@ -77,7 +79,7 @@ const CartProvider = (props) => {
 
             let updatedItem = {
                 ...item,
-                quantity: Number(existingItem.item.quantity) + 1,
+                // quantity: Number(existingItem.item.quantity) + 1,
             };
             // let updatedItems = [...cartItems];
             // updatedItems[itemIdx] = updatedItem;
@@ -85,7 +87,7 @@ const CartProvider = (props) => {
 
             await axios
                 .put(
-                    `https://crudcrud.com/api/dc4e5029790e41a1bff8dfcb62a29b75/cart${email}/${userId}`,
+                    `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}/${userId}`,
                     {
                         email: email,
                         updatedItem,
@@ -95,13 +97,15 @@ const CartProvider = (props) => {
                     getCartItemFromDb();
                 });
         } else {
-            let updatedItem = { ...item, quantity: "1" };
+            let updatedItem = { ...item };
+
+            //, quantity: "1"
 
             setCartItems(updatedItem);
 
             await axios
                 .post(
-                    `https://crudcrud.com/api/dc4e5029790e41a1bff8dfcb62a29b75/cart${email}`,
+                    `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}`,
                     {
                         email: email,
                         updatedItem,
@@ -120,7 +124,7 @@ const CartProvider = (props) => {
 
         await axios
             .delete(
-                `https://crudcrud.com/api/dc4e5029790e41a1bff8dfcb62a29b75/cart${email}/${userId}`
+                `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}/${userId}`
             )
             .then(() => {
                 getCartItemFromDb();
@@ -151,23 +155,12 @@ const CartProvider = (props) => {
         // // }
     };
 
-    const displayHandler = (item) => {
-        const displayItems = product.filter((i) => {
-            return i.id !== item.id;
-        });
-        if (displayItems) {
-            setProduct([{ ...item }]);
-        }
-    };
-
     const cart_context = {
         listOfItems: cartItems,
-        display: product,
         totalAmount: +totalAmount,
         totalQuantity: +totalQuantity,
         addItems: addItemToCartHandler,
         removeItems: removeItemToCartHandler,
-        displayItems: displayHandler,
     };
 
     return (

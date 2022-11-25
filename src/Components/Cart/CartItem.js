@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import Input from "../../UI/Input";
 import CartContext from "../../Store/cart-context";
 import classes from "./CartItem.module.css";
 
@@ -11,30 +13,41 @@ const CartItem = (props) => {
         cartContext.removeItems(props);
     };
     return (
-        <li className={classes.list}>
-            <span className={classes.title1}>
-                <img
-                    className={classes.img}
-                    src={props.imageUrl}
-                    alt="Product"
-                />
-                <span>{props.title}</span>
-            </span>
-            <span className={classes.price}>{`$${props.price}`}</span>
-            <span className={classes.title2}>
-                <input
-                    className={classes.quantity}
-                    type="number"
-                    placeholder={props.quantity}
-                />
-                <button
-                    className={classes["btn-remove"]}
-                    onClick={removeItemHandler}
-                >
-                    REMOVE
-                </button>
-            </span>
-        </li>
+        <div>
+            <li key={props.id} className={classes.list}>
+                <span className={classes.title1}>
+                    <Link to={`/store/${props.id}`}>
+                        <img
+                            className={classes.img}
+                            src={props.imageUrl}
+                            alt="Product"
+                        />
+                    </Link>
+                    <span>{props.title}</span>
+                </span>
+                <span className={classes.price}>{`$${props.price}`}</span>
+                <span className={classes.title2}>
+                    <Input
+                        className={classes.quantity}
+                        // type="number"
+                        // value={props.quantity}
+                        input={{
+                            id: props.id,
+                            type: "number",
+                            min: "1",
+                            step: "1",
+                            defaultValue: props.quantity,
+                        }}
+                    />
+                    <button
+                        className={classes["btn-remove"]}
+                        onClick={removeItemHandler}
+                    >
+                        REMOVE
+                    </button>
+                </span>
+            </li>
+        </div>
     );
 };
 
