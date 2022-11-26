@@ -42,6 +42,7 @@ const CartProducts = (props) => {
                         imageUrl={item.item.img}
                         title={item.item.title}
                         price={item.item.price}
+                        onClose={props.onClose}
                     />
                 );
             })}

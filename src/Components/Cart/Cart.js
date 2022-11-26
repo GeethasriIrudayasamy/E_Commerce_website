@@ -14,7 +14,7 @@ const Cart = () => {
     return (
         <div>
             {showCart && <CartProducts onClose={hideCartHandler} />}
-            
+
             <button onClick={showCartHandler} className={classes.cart}>
                 Cart
             </button>

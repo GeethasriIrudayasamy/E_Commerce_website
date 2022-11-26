@@ -64,6 +64,27 @@ const Login = () => {
     return (
         <div>
             <Header />
+            <section
+                style={{
+                    marginTop: "57px",
+                    marginLeft: "20px",
+                }}
+            >
+                <p
+                    style={{
+                        color: "blue",
+                        textDecoration: "underline",
+                        marginBottom: "10px",
+                    }}
+                >
+                    Kindly use the following email and password to take a tour
+                    of the website :)
+                </p>
+
+                <p>Email : anu20@gmail.com</p>
+
+                <p>Password : 1234567</p>
+            </section>
             <section className={classes.auth}>
                 <h1>{isLogin ? "Login" : "Sign Up"}</h1>
                 <form onSubmit={submitHandler}>

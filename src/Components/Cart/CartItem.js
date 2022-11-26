@@ -21,6 +21,7 @@ const CartItem = (props) => {
                             className={classes.img}
                             src={props.imageUrl}
                             alt="Product"
+                            onClick={props.onClose}
                         />
                     </Link>
                     <span>{props.title}</span>

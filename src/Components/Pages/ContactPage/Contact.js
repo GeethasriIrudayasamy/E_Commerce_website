@@ -52,7 +52,7 @@ const Contact = () => {
         <div>
             <Header />
             <h2 className={classes.title}> Please fill your details !</h2>
-            <body>
+            <div>
                 <div className={classes.form}>
                     <form onSubmit={addContactHandler}>
                         <div>
@@ -71,7 +71,7 @@ const Contact = () => {
                         <button type="submit">Submit</button>
                     </form>
                 </div>
-            </body>
+            </div>
 
             <Footer />
         </div>

@@ -20,7 +20,7 @@ const CartProvider = (props) => {
         console.log(" getcartitem called");
         if (email) {
             const response = await fetch(
-                `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}`
+                `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}`
             );
             const data = await response.json();
             console.log(data);
@@ -87,7 +87,7 @@ const CartProvider = (props) => {
 
             await axios
                 .put(
-                    `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}/${userId}`,
+                    `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}/${userId}`,
                     {
                         email: email,
                         updatedItem,
@@ -105,7 +105,7 @@ const CartProvider = (props) => {
 
             await axios
                 .post(
-                    `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}`,
+                    `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}`,
                     {
                         email: email,
                         updatedItem,
@@ -124,7 +124,7 @@ const CartProvider = (props) => {
 
         await axios
             .delete(
-                `https://crudcrud.com/api/f9f54857751d4a2eb596dd704e036b45/cart${email}/${userId}`
+                `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}/${userId}`
             )
             .then(() => {
                 getCartItemFromDb();
