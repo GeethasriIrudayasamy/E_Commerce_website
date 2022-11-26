@@ -36,8 +36,13 @@ const HomeContent = () => {
         },
     ];
 
-    const tourContent = tourlist.map((item) => (
-        <TourList date={item.date} city={item.city} place={item.place} />
+    const tourContent = tourlist.map((item, i) => (
+        <TourList
+            key={i}
+            date={item.date}
+            city={item.city}
+            place={item.place}
+        />
     ));
 
     return (
