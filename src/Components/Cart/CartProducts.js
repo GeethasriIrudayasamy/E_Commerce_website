@@ -6,7 +6,7 @@ import CartItem from "./CartItem";
 
 const CartProducts = (props) => {
     const cartContext = useContext(CartContext);
-    console.log(cartContext);
+    // console.log(cartContext);
 
     const purchaseHandler = () => {
         alert(

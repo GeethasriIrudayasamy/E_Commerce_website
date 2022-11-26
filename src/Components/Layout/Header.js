@@ -12,7 +12,7 @@ const Header = () => {
 
     const isLoggedIn = authCtx.isLoggedIn;
     // console.log(cartCtx);
-    console.log(authCtx);
+    // console.log(authCtx);
 
     const logoutHandler = () => {
         authCtx.logout();

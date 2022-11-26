@@ -17,31 +17,34 @@ const CartProvider = (props) => {
     // console.log(email);
 
     const getCartItemFromDb = useCallback(async () => {
-        console.log(" getcartitem called");
+        // console.log(" getcartitem called");
         if (email) {
+            // const response = await fetch(
+            //     `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}`
+            // );
             const response = await fetch(
-                `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}`
+                `https://e-commerce-website-f6d8a-default-rtdb.firebaseio.com/cart${email}.json`
             );
-            const data = await response.json();
-            console.log(data);
-            if (data.length > 0) {
+
+            let data = await response.json();
+            // console.log(data);
+            if (data != null) {
                 const cartItem = [];
                 let amount = 0;
                 let totalquantity = 0;
+
                 for (const key in data) {
-                    // console.log(data[key].updatedList.updatedItem);
-                    amount +=
-                        data[key].updatedItem.price *
-                        Number(data[key].updatedItem.quantity);
-                    totalquantity =
-                        totalquantity + Number(data[key].updatedItem.quantity);
+                    // console.log(JSON.parse(data[key].updatedItem));
+                    let item = JSON.parse(data[key].updatedItem);
+                    amount += Number(item.price) * Number(item.quantity);
+                    totalquantity = totalquantity + Number(item.quantity);
                     cartItem.push({
-                        item: data[key].updatedItem,
+                        item: item,
                         // email: data[key].email,
-                        _id: data[key]._id,
+                        _id: key,
                         // quantity: Number(data[key].updatedItem.quantity),
                     });
-                    console.log(cartItem);
+                    // console.log(cartItem);
                     setTotalAmount(amount);
                     setTotalQuantity(totalquantity);
                     setCartItems(cartItem);
@@ -57,65 +60,73 @@ const CartProvider = (props) => {
         getCartItemFromDb();
     }, [getCartItemFromDb]);
 
-    const addItemToCartHandler = async (item) => {
-        // const updatedTotalAmount = cart_context.totalAmount + item.price;
-        // setTotalAmount(updatedTotalAmount);
-        // setTotalQuantity((preQty) => preQty + 1);
-        console.log(cartItems);
+    const addItemToCartHandler = useCallback(
+        async (item) => {
+            // const updatedTotalAmount = cart_context.totalAmount + item.price;
+            // setTotalAmount(updatedTotalAmount);
+            // setTotalQuantity((preQty) => preQty + 1);
+            // console.log(cartItems);
 
-        const itemIdx = cartItems.findIndex((i) => i.item.id === item.id);
-        let existingItem = cartItems[itemIdx];
-        if (existingItem) {
-            console.log(existingItem._id);
-            let userId = existingItem._id;
+            const itemIdx = cartItems.findIndex((i) => i.item.id === item.id);
+            let existingItem = cartItems[itemIdx];
+            if (existingItem) {
+                // console.log(existingItem._id);
+                let userId = existingItem._id;
 
-            // let updatedItem = {
-            //     ...existingItem,
-            //     quantity: +existingItem.quantity + 1,
-            // };
+                // let updatedItem = {
+                //     ...existingItem,
+                //     quantity: +existingItem.quantity + 1,
+                // };
 
-            // let updatedItems = [...cartItems];
-            // updatedItems[itemIdx] = updatedItem;
+                // let updatedItems = [...cartItems];
+                // updatedItems[itemIdx] = updatedItem;
 
-            let updatedItem = {
-                ...item,
-                // quantity: Number(existingItem.item.quantity) + 1,
-            };
-            // let updatedItems = [...cartItems];
-            // updatedItems[itemIdx] = updatedItem;
-            // setCartItems(updatedItems);
+                let updatedItem = {
+                    ...item,
+                    email,
+                };
+                // let updatedItems = [...cartItems];
+                // updatedItems[itemIdx] = updatedItem;
+                // setCartItems(updatedItems);
 
-            await axios
-                .put(
-                    `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}/${userId}`,
-                    {
-                        email: email,
-                        updatedItem,
-                    }
-                )
-                .then(() => {
-                    getCartItemFromDb();
-                });
-        } else {
-            let updatedItem = { ...item };
+                await axios
+                    .put(
+                        `https://e-commerce-website-f6d8a-default-rtdb.firebaseio.com/cart${email}/${userId}.json`,
+                        {
+                            updatedItem: JSON.stringify(updatedItem),
+                        }
+                    )
+                    .then(() => {
+                        getCartItemFromDb();
+                    });
+            } else {
+                let updatedItem = { ...item, email };
 
-            //, quantity: "1"
+                //, quantity: "1"
 
-            setCartItems(updatedItem);
+                setCartItems(updatedItem);
 
-            await axios
-                .post(
-                    `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}`,
-                    {
-                        email: email,
-                        updatedItem,
-                    }
-                )
-                .then(() => {
-                    getCartItemFromDb();
-                });
-        }
-    };
+                await axios
+                    .post(
+                        `https://e-commerce-website-f6d8a-default-rtdb.firebaseio.com/cart${email}.json`,
+                        {
+                            updatedItem: JSON.stringify(updatedItem),
+                            // headers: {
+                            //     "Content-Type": "application/json",
+                            // },
+                        }
+                    )
+                    .then(() => {
+                        getCartItemFromDb();
+                    });
+
+                // if (response.ok) {
+                //     getCartItemFromDb();
+                // }
+            }
+        },
+        [cartItems, email, getCartItemFromDb]
+    );
 
     const removeItemToCartHandler = async (item) => {
         const itemIdx = cartItems.findIndex((i) => i.item.id === item.id);
@@ -124,7 +135,10 @@ const CartProvider = (props) => {
 
         await axios
             .delete(
-                `https://crudcrud.com/api/d5a5f82306ac46888fbc3bee9f50e267/cart${email}/${userId}`
+                `https://e-commerce-website-f6d8a-default-rtdb.firebaseio.com/cart${email}/${userId}.json`,
+                {
+                    method: "DELETE",
+                }
             )
             .then(() => {
                 getCartItemFromDb();

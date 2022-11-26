@@ -6,13 +6,25 @@ import classes from "./ProductList.module.css";
 
 const ProductList = (props) => {
     const cartCtx = useContext(CartContext);
+    // console.log(cartCtx.listOfItems);
+
+    // console.log(item);
 
     const addToCartHandler = () => {
-        if (props.quantity >= 1) {
-            cartCtx.addItems({
-                ...props,
-                quantity: Number(props.quantity) + 1,
+        if (cartCtx.listOfItems.length >= 1) {
+            const itemIndex = cartCtx.listOfItems.findIndex((item) => {
+                console.log(item.item.id);
+                return item.item.id === props.id;
             });
+            let item = cartCtx.listOfItems[itemIndex];
+            if (item && Number(item.item.quantity) >= 1) {
+                cartCtx.addItems({
+                    ...props,
+                    quantity: Number(item.item.quantity) + 1,
+                });
+            } else {
+                cartCtx.addItems({ ...props, quantity: "1" });
+            }
         } else {
             cartCtx.addItems({ ...props, quantity: "1" });
         }

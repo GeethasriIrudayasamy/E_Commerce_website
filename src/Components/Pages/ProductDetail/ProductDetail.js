@@ -5,17 +5,17 @@ import { productsArr } from "../../Products/AvailableProducts";
 import Product from "./Product";
 
 const ProductDetail = (props) => {
-    console.log(props);
+    // console.log(props);
 
     let { productId } = useParams();
-    console.log(productId);
+    // console.log(productId);
 
     const itemIndex = productsArr.findIndex((item) => {
         return item.id === productId;
     });
     let content;
     let item = productsArr[itemIndex];
-    console.log(item);
+    // console.log(item);
 
     if (item) {
         content = (

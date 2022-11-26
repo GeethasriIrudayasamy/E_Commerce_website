@@ -24,10 +24,10 @@ const Login = () => {
         let url;
         if (isLogin) {
             url =
-                "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDWtM33apY0Lsd8CGEt_PkgmfozwSgL7os";
+                "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAod3qMeAEU4zxLwAhFSyKBZSYP-QaXUHM";
         } else {
             url =
-                "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDWtM33apY0Lsd8CGEt_PkgmfozwSgL7os";
+                "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAod3qMeAEU4zxLwAhFSyKBZSYP-QaXUHM";
         }
         fetch(url, {
             method: "POST",
@@ -53,7 +53,7 @@ const Login = () => {
             })
             .then((data) => {
                 auth_ctx.login(data.idToken, data.email);
-                console.log(data);
+                // console.log(data);
                 history.replace("/store");
             })
             .catch((err) => {

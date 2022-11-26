@@ -11,21 +11,21 @@ import classes from "./Product.module.css";
 const Product = (props) => {
     const [fillImage, setFillImage] = useState(props.img);
     const cartCtx = useContext(CartContext);
-    console.log(props);
+    // console.log(props);
 
     const addItemToCart = (event) => {
         event.preventDefault();
         const quantity = document.getElementById(props.id).value;
 
         cartCtx.addItems({ ...props, quantity });
-        console.log(cartCtx);
+        // console.log(cartCtx);
     };
 
-    console.log(props);
+    // console.log(props);
 
     const changeImageHandler = (event) => {
         event.preventDefault();
-        console.log(event.target);
+        // console.log(event.target);
         setFillImage(event.target.src);
     };
 

@@ -6,7 +6,7 @@ import classes from "./CartItem.module.css";
 
 const CartItem = (props) => {
     const cartContext = useContext(CartContext);
-    console.log(props);
+    // console.log(props);
 
     const removeItemHandler = (event) => {
         event.preventDefault();

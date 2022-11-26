@@ -35,7 +35,7 @@ const Contact = () => {
     };
     async function addToList(details) {
         const response = await fetch(
-            "https://movie-app-c72a2-default-rtdb.firebaseio.com/contact_details.json",
+            "https://e-commerce-website-f6d8a-default-rtdb.firebaseio.com/contact_details.json",
             {
                 method: "POST",
                 body: JSON.stringify(details),
@@ -44,8 +44,7 @@ const Contact = () => {
                 },
             }
         );
-        const data = await response.json();
-        console.log(data);
+        await response.json();
     }
 
     return (
