@@ -64,7 +64,7 @@ const Login = () => {
     return (
         <div>
             <Header />
-            <section
+            {/* <section
                 style={{
                     marginTop: "57px",
                     marginLeft: "20px",
@@ -84,7 +84,7 @@ const Login = () => {
                 <p>Email : anu20@gmail.com</p>
 
                 <p>Password : 1234567</p>
-            </section>
+            </section> */}
             <section className={classes.auth}>
                 <h1>{isLogin ? "Login" : "Sign Up"}</h1>
                 <form onSubmit={submitHandler}>
@@ -93,6 +93,7 @@ const Login = () => {
                         <input
                             type="email"
                             id="email"
+                            placeholder="anu20@gmail.com"
                             required
                             ref={emailInputRef}
                         />
@@ -102,6 +103,7 @@ const Login = () => {
                         <input
                             type="password"
                             id="password"
+                            placeholder="1234567"
                             required
                             ref={passwordInputRef}
                         />
@@ -113,7 +115,9 @@ const Login = () => {
                             </button>
                         )}
                         {isLoading && (
-                            <p style={{ color: "blue" }}>Sending request...</p>
+                            <p style={{ color: "blue", marginBottom: "18px" }}>
+                                Sending request...
+                            </p>
                         )}
 
                         <button
